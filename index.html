@@ -177,6 +177,70 @@
             </div>
         </section>
 
+        <!-- Kesimpulan & Refleksi Interaktif -->
+        <section class="bg-white rounded-3xl shadow-xl overflow-hidden p-6 md:p-8 animate-fade-in delay-600 border border-slate-200">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <div class="inline-block bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">
+                    Fase Penutup & Evaluasi Mandiri
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800">📝 Kesimpulan & Refleksi Pembelajaran</h2>
+                <p class="text-slate-600 text-sm mt-1">Ulas kembali pemahaman materi hari ini dan catatkan hasil refleksimu sebelum mengakhiri sesi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Kolom Ringkasan Materi (Kesimpulan) -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Poin Penting (Rangkuman)
+                    </h3>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li class="flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">1</span>
+                            <span><strong>Diagram Pencar</strong> adalah visualisasi data bivariat menggunakan sistem koordinat Kartesius $(x, y)$.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">2</span>
+                            <span><strong>Korelasi Positif:</strong> Ketika nilai X naik, nilai Y cenderung ikut naik.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">3</span>
+                            <span><strong>Korelasi Negatif:</strong> Ketika nilai X naik, nilai Y cenderung turun.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="bg-indigo-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 mt-0.5">4</span>
+                            <span><strong>Garis Regresi (Tren):</strong> Alat bantu linear untuk memperjelas arah hubungan antarvariabel data.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kolom Jurnal Refleksi Siswa -->
+                <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 space-y-4 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-indigo-900 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            Jurnal Refleksi Siswa
+                        </h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-indigo-900 mb-1">Bagian mana dari materi Diagram Pencar yang paling mudah kamu pahami?</label>
+                            <input type="text" id="refleksi1" class="w-full text-sm p-2.5 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Contoh: Mengetahui korelasi positif dan negatif...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-indigo-900 mb-1">Kesulitan atau kendala apa yang masih kamu hadapi?</label>
+                            <input type="text" id="refleksi2" class="w-full text-sm p-2.5 rounded-lg border border-indigo-200 bg-white focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Contoh: Menghitung garis regresi secara manual...">
+                        </div>
+                    </div>
+                    
+                    <button onclick="submitRefleksi()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl transition duration-200 shadow-sm text-sm">
+                        Simpan & Unduh Catatan Refleksi 📥
+                    </button>
+                    <div id="refleksiAlert" class="hidden text-xs text-center text-green-700 font-bold bg-green-100 p-2 rounded-lg">
+                        ✨ Refleksi berhasil disimpan! Kerja bagus hari ini.
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer class="text-center text-slate-500 text-sm mt-8 pb-4">
             &copy; 2026 Media Pembelajaran Kurikulum Merdeka - Dibuat untuk Siswa Hebat Indonesia.
         </footer>
@@ -460,6 +524,23 @@
         // Mulai kuis pertama
         generateQuiz();
 
+        // --- STREAMING_CHUNK:Reflection interaction script... ---
+        // Fungsi Interaktif Refleksi Siswa
+        function submitRefleksi() {
+            const r1 = document.getElementById('refleksi1').value.trim();
+            const r2 = document.getElementById('refleksi2').value.trim();
+            const alertBox = document.getElementById('refleksiAlert');
+
+            if (!r1 && !r2) {
+                alert("Mohon isi setidaknya salah satu kolom refleksi sebelum menyimpan!");
+                return;
+            }
+
+            alertBox.classList.remove('hidden');
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 4000);
+        }
     </script>
 </body>
 </html>
